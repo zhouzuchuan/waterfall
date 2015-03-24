@@ -1,6 +1,7 @@
 /*
 *
 *create by zhouzuchuan (.com)
+*https://github.com/zhouzuchuan/waterfall
 *版本 ： v1.0 【2015.03.12】
 *兼容性 ： IE6+/FF/Chrome... 
 *
