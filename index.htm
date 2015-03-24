@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>瀑布流插件案列</title>
+<link rel="stylesheet" href="http://365jia.cn/css/basic.css" type="text/css" />
+<link rel="stylesheet" href="style/zzc_wf.css" />
+</head>
+<body>
+<div id="waterfall">
+  <ul> 
+    <li><img src="http://365jia.cn/uploads/15/0303/54f504cc3b230.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic26.huitu.com/r es/20150104/315218_20150104223946785200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic16.huitu.com/r es/20131231/523_20131231215854622200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic28.huitu.com/res/20150227/572294_20150227204507650200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic27.huitu.com/res/20150126/670166_20150126114948336200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic27.huitu.com/res/20150126/670166_20150126114945170200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic23.huitu.com/r es/20141015/1030_20141015214102835200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic22.huitu.com/res/20140919/1030_20140919155231410201_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://365jia.cn/uploads/15/0303/54f504cc62af6.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic27.huitu.com/res/20150201/450084_20150201004140007200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic23.huitu.com/res/20141012/35582_20141012183337180329_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic27.huitu.com/res/20150116/660153_20150116132847292174_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic27.huitu.com/res/20150116/660153_20150116132847337119_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic26.huitu.com/res/20150113/664185_20150113013933360200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://pic26.huitu.com/res/20150113/664185_20150113014620542200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+  </ul>
+  <div>ddasdfasdgfasdfasdf</div>
+</div>
+
+<div class="btn1">加载</div>
+<script type="text/javascript" src="http://365jia.cn/js/jQuery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/zzc_wf.1.0.js"></script>
+<script>
+
+
+$(document).ready(function(){
+  $('#waterfall').zzc_wf({
+    type : 0 ,
+    width : 1200 ,
+    length : 6 ,
+    spacing : 10 , 
+    showClass : false ,
+    reposition : true ,
+    loading : true ,
+    loadingText : '玩命加载中…' ,
+    ajax : {
+        type : 'POST',
+        url : 'info.html',
+        dom : '.btn1',
+        domType : 'scroll' 
+    } ,
+    after : function() {
+        // alert('加载完成');
+    }
+  });
+})
+
+
+</script>
+</body>
+</html>
