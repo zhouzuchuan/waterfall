@@ -104,10 +104,10 @@
             left : index * (iw + $.o.z.spacing) ,
             visibility : 'visible'
           });
-          $.zzc_wf.imgLoad($(element).find('img') , function (obj) {
+          $.zzc_wf.imgLoad($(element).find('img').get(0) , function (obj) {
             wan ++ ;
 
-            $(obj).width((obj.get(0).width > (iw - otherSpacing)) ? (iw - otherSpacing) : obj.get(0).width);
+            $(obj).width((obj.width > (iw - otherSpacing)) ? (iw - otherSpacing) : obj.width);
             $(obj).height($(obj).height());
 
             if (!(wan == ($.o.z.length > $.o.eli.length ? $.o.eli.length : $.o.z.length))) return false;
@@ -132,9 +132,9 @@
 
       function setH2() {
         $.o.eli.slice(startNum,endNum).each(function(index,element) {
-          $.zzc_wf.imgLoad($(element).find('img'),function (obj) {
+          $.zzc_wf.imgLoad($(element).find('img').get(0),function (obj) {
 
-            $(obj).width((obj.get(0).width > (iw - otherSpacing)) ? (iw - otherSpacing) : obj.get(0).width);
+            $(obj).width((obj.width > (iw - otherSpacing)) ? (iw - otherSpacing) : obj.width);
             $(obj).height($(obj).height());
 
             min_h = Math.min.apply(null,$.o.h);
@@ -316,7 +316,7 @@
       var timer2 = setInterval(function() {
         if (obj.complete || (obj.width && obj.height && document.all)) {
           callback(obj);
-          clearInterval(timer);
+          clearInterval(timer2);
         }
       },30);
     } 
