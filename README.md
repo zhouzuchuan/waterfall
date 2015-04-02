@@ -39,6 +39,7 @@
     ajax : {
       type : 'GET' , 
       url : 'http://www.365jia.cn' ,   
+      dataType : 'html' ,
       dom : '.btn' ,       
       domType : 'click' 
     }
@@ -122,6 +123,12 @@
   <em>必选，加载地址</em>
   
   <strong>url : ''  </strong>
+  
+  =================================
+
+  <em>必选，加载的数据格式，如 'json'</em>                
+
+  <strong>dataType : '' </strong> 
   
   =================================
 

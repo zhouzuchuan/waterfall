@@ -266,17 +266,19 @@
           type : $.o.z.ajax.type ,
           url : $.o.z.ajax.url ,
           timeout : 1000,
+          dataType : $.o.z.ajax.dataType ,
           beforeSend : $.o.z.ajaxBefore() ,
           success : function(response , status , xhr) {
             if (((typeof $.o.z.loading == 'string') && ($.o.z.loading != '')) || ((typeof $.o.z.loading == 'boolean') && $.o.z.loading)) {
               $.zzc_wf.setLoading();
             }
+
             $('.zzc_wf_box').html(response);
             $('.zzc_wf_box').find('li').each(function(index,element) {
               
-              $.zzc_wf.imgLoad($(element).find('img') , function(obj) {
+              $.zzc_wf.imgLoad($(element).find('img').get(0) , function(obj) {
 
-                $(obj).width((obj.get(0).width > (iw - otherSpacing)) ? (iw - otherSpacing) : obj.get(0).width);
+                $(obj).width((obj.width > (iw - otherSpacing)) ? (iw - otherSpacing) : obj.width);
                 $(obj).height($(obj).height());
 
                 min_h = Math.min.apply(null,$.o.h);
@@ -340,7 +342,8 @@
     ajaxBefore : $.noop ,             /*异步加载之前执行的的函数*/        
     ajax : {
       type : 'GET' ,                  /*类型*/      
-      url : '' ,                      /*加载连接*/      
+      url : '' ,                      /*加载连接*/  
+      dataType : '' ,                 /*加载数据类型*/
       dom : '' ,                      /*触发执行异步加载对象*/      
       domType : 'click'               /*触发执行异步加载类型*/
     }
