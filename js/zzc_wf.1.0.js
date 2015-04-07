@@ -43,7 +43,8 @@
       eul : elements.children('ul') ,
       eli : elements.children('ul').children('li') ,
       h : [] ,        /*储存高度*/
-      typeNum : 0     /*异步加载执行类型*/
+      typeNum : 0 ,   /*异步加载执行类型*/
+      num : 0        /*储存ajax获取数量*/
     }
 
 
@@ -266,14 +267,28 @@
           type : $.o.z.ajax.type ,
           url : $.o.z.ajax.url ,
           timeout : 1000,
-          dataType : $.o.z.ajax.dataType ,
+          dataType : 'json' ,
           beforeSend : $.o.z.ajaxBefore() ,
           success : function(response , status , xhr) {
             if (((typeof $.o.z.loading == 'string') && ($.o.z.loading != '')) || ((typeof $.o.z.loading == 'boolean') && $.o.z.loading)) {
               $.zzc_wf.setLoading();
             }
 
-            $('.zzc_wf_box').html(response);
+
+            var data = eval(response);
+
+            for (var i in data) {
+              var d = data[i] ;
+            }
+
+            var num = $.o.num
+
+            $.o.num += $.o.z.ajax.length;
+
+            $.each(d.slice(num,$.o.num),function (index,element) {
+              $('.zzc_wf_box').append($(element));
+            });
+            
             $('.zzc_wf_box').find('li').each(function(index,element) {
               
               $.zzc_wf.imgLoad($(element).find('img').get(0) , function(obj) {
@@ -342,7 +357,8 @@
     ajaxBefore : $.noop ,             /*异步加载之前执行的的函数*/        
     ajax : {
       type : 'GET' ,                  /*类型*/      
-      url : '' ,                      /*加载连接*/  
+      url : '' ,                      /*加载连接*/ 
+      height : 0 , 
       dataType : '' ,                 /*加载数据类型*/
       dom : '' ,                      /*触发执行异步加载对象*/      
       domType : 'click'               /*触发执行异步加载类型*/

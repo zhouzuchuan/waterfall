@@ -22,26 +22,24 @@
 ## 二 、 调用方法（根据具体需求选择调用）
 
   $('.wf').zzc_wf({
-    type : 0 ,                  
-    width : 1200 ,        
-    length : 6 ,        
-    spacing : 10,        
-    loading : true,    
-    loadingText : '加载中…' ,  
-    showClass : false ,  
-    reposition : true ,  
-    after : function () {
-      alert('after');
-    }  ,  
-    ajaxBefore : function () {
-      alert('ajaxBefore');
-    } ,    
+    type : 0 ,            
+    zhou : 'dddd',
+    width : 'auto' ,         
+    length : 6 ,              
+    spacing : 10,             
+    loading : true,                
+    loadingText : '加载中…' ,     
+    showClass : false ,        
+    reposition : true ,          
+    after : $.noop  ,             
+    ajaxBefore : $.noop ,             
     ajax : {
-      type : 'GET' , 
-      url : 'http://www.365jia.cn' ,   
-      dataType : 'html' ,
-      dom : '.btn' ,       
-      domType : 'click' 
+      type : 'GET' ,                   
+      url : '' ,                    
+      dataType : '' ,            
+      dom : '' ,                     
+      domType : 'click'  ,        
+      domDistance : 100              
     }
   });
 
@@ -121,8 +119,35 @@
   =================================
 
   <em>必选，加载地址</em>
-  
-  <strong>url : ''  </strong>
+
+    现有两种状态
+
+    <strong>1、如下，为指定唯一的加载地址，即一直加载都是这个地址</strong>
+
+    <strong>url : ''  </strong>
+
+    <strong>2、如下，可以动态加载分页地址（下面加载的实际地址为   info1.html  ）</strong>
+    
+    #### url : {
+
+      <em>必选，加载地址主体部分，即页数前面的部分</em>
+
+      <strong>main : 'info' </strong>
+
+      ================================
+
+      <em>必选，加载地址起始页数</em>
+
+      <strong>page : 1 </strong>
+
+      ================================
+
+      <em>必选，加载地址后缀，即页数后面的部分</em>
+      <strong>suffix : '.html' </strong>
+
+      ================================
+
+    #### } 
   
   =================================
 
@@ -142,6 +167,11 @@
   
   <strong>domType : 'click'  </strong>
 
+  =================================
   
+  <em>可选（number），选择scroll 为当整体页面移动到距离文档底部指定高度时触发ajax ，不设置默认为0 则滚动条移动到文档底部时再加载</em>                   
+  
+  <strong>domDistance : 100  </strong>
+
   
 ### }
