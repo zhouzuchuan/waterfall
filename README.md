@@ -11,9 +11,9 @@
 
   * v1.1 【2015.04.07】
 
-     ###### 1、改写插件结构、名称及调用方式,新增部分API
+     1、改写插件结构、名称及调用方式,新增部分API
    
-     ###### 2、优化滚动加载方式和解决不能加载分页的bug
+     2、优化滚动加载方式和解决不能加载分页的bug
 
 
 
@@ -29,17 +29,17 @@
 
   &lt;div class="wf"&gt;
   
-    &lt;ul&gt;
+    <ul>
     
-      &lt;li&gt;区域一&lt;/li&gt;
+      <li>区域一</li>
       
-      &lt;li&gt;区域二&lt;/li&gt;
+      <li>区域二</li>
       
-      &lt;li&gt;区域三&lt;/li&gt;
+      <li>区域三</li>
       
-      &lt;li&gt;区域四&lt;/li&gt;
+      <li>区域四</li>
       
-    &lt;/ul&gt;
+    </ul>
     
   &lt;/div&gt;
 
