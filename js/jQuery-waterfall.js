@@ -381,7 +381,6 @@
   // 对外接口
   var pfDefault = {
     type : 0 ,                        /*瀑布流加载类型*/
-    zhou : 'dddd',
     width : 'auto' ,                  /*瀑布流的整体宽度*/
     length : 6 ,                      /*每行显示的个数*/
     spacing : 10,                     /*每个独立块之间的间距*/
