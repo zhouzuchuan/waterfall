@@ -30,32 +30,43 @@
 
 <div class="btn1">加载</div>
 <script type="text/javascript" src="http://365jia.cn/js/jQuery/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="js/zzc_wf.1.0.js"></script>
+<script type="text/javascript" src="js/jQuery-waterfall.js"></script>
 <script>
 
 
 $(document).ready(function(){
-  $('#waterfall').zzc_wf({
+
+  $('#waterfall').waterfall({
     type : 0 ,
     width : 1200 ,
-    length : 6 ,
+    length : 5 ,
     spacing : 10 , 
-    showClass : false ,
-    reposition : true ,
-    loading : true ,
     loadingText : '玩命加载中…' ,
+    ajaxBefore : function () {
+    } ,
+    // ajax : {
+    //     type : 'POST',
+    //     url : 'info1.html',
+    //     dataType : 'html' ,
+    //     domDistance : 0 ,
+    //     dom : '.btn1',
+    //     domType : 'scroll' 
+    // } ,
     ajax : {
         type : 'POST',
-        url : 'info.json',
-        height : 2 ,
+        url : {
+            main : 'info' ,
+            page : 1 ,
+            suffix : '.html'
+        },
+        dataType : 'html' ,
         dom : '.btn1',
+        domDistance : 200 ,
         domType : 'scroll' 
     } ,
     after : function() {
-        // alert('加载完成');
-    }
+    } 
   });
-})
 
 
 </script>
