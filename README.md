@@ -15,6 +15,10 @@
    
      ###### 2、优化滚动加载方式和解决不能加载分页的bug
 
+
+
+
+
 * 注：
  * 1 、 为了避免出现错误，该版本引用jquery库请选择1.7版本以上
  * 2 、 插件框架用的是ul标签搭建，里面尽可能不要用ul和li标签
@@ -24,12 +28,19 @@
 ## 一 、 整体框架
 
   &lt;div class="wf"&gt;
+  
     &lt;ul&gt;
+    
       &lt;li&gt;区域一&lt;/li&gt;
+      
       &lt;li&gt;区域二&lt;/li&gt;
+      
       &lt;li&gt;区域三&lt;/li&gt;
+      
       &lt;li&gt;区域四&lt;/li&gt;
+      
     &lt;/ul&gt;
+    
   &lt;/div&gt;
 
 
