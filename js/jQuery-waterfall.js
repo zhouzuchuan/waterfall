@@ -12,7 +12,7 @@
 
 ;(function ($) {
 
-  if ($.fn.picFocus) return;
+  if ($.fn.waterfall) return;
 
   // 给页面装载默认css
   var style = '<style type="text/css">' + 
@@ -39,7 +39,7 @@
       ele : $(this) ,
       eul : $(this).find('ul') ,
       eli : $(this).find('ul').children('li') 
-    }
+    };
 
     options = $.extend({} , configs , options || {});
 
