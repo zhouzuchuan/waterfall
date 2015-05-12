@@ -2,11 +2,14 @@
 *
 *create by zhouzuchuan (.com)
 *https://github.com/zhouzuchuan/waterfall
-*兼容性 ： IE6+/FF/Chrome... 
-*版本 ： v1.0 【2015.03.12】
-*        v1.1 【2015.04.07】
+*兼容性 ： IE6+/FF/Chrome...
+*版本 ： v1.0.0 【2015.03.12】
+*        v1.1.0 【2015.04.07】
 *              # 改写插件结构、名称及调用方式,新增部分API，具体见托管网站
 *              # 优化滚动加载方式和解决不能加载分页的bug
+*        v1.1.1 【2015.05.12】
+*              # 优化显示样式，解决显示bug
+*              # 添加新接口，定义ajax加载完成提示信息
 *
 */
 
@@ -15,15 +18,19 @@
   if ($.fn.waterfall) return;
 
   // 给页面装载默认css
-  var style = '<style type="text/css">' + 
-              '.zzc_wf_loading {position: fixed; _position: absolute; left: 50%; bottom: 200px; }' + 
+  var style = '<style type="text/css">' +
+              '.zzc_wf_loading {position: fixed; _position: absolute; left: 50%; bottom: 200px; }' +
               '.zzc_wf_loading p {position: absolute; top: 0; left: 0; z-index: 1000; width: 100%; height: 100%; background: #fff url(http://365jia.cn/images/load.gif) no-repeat 10px center; opacity: .8; filter: alpha(opacity=80); border-radius: 10px; }' +
-              '.zzc_wf_loading div {position: absolute; top: 0; left: 0; z-index: 1001; text-align: center; }' + 
+              '.zzc_wf_loading div {position: absolute; top: 0; left: 0; z-index: 1001; text-align: center; }' +
               '.zzc_wf_loading strong {display: inline-block; color: #555; font-size: 18px; font-weight: normal; font-family: Microsoft YaHei,SimHei; padding: 0 10px; white-space: nowrap; vertical-align: middle; }' + 
-              '.zzc_wf_loading em {display: inline-block; width: 32px; height: 32px; padding: 10px 0 10px 10px; vertical-align: middle; }' + 
+              '.zzc_wf_loading em {display: inline-block; width: 32px; height: 32px; padding: 10px 0 10px 10px; vertical-align: middle; }' +
               '.ajaxAppendBox li {visibility: hidden}' +
-              '.loadingTypeBtn {position:absolute;top:-100px;right:0px;width:10px;height:10px;background:green;z-index:-1;}' + 
-              '.zzc_wf_in {animation: zzc_wf_fade 1s; -webkit-animation: zzc_wf_fade 1s; }' + 
+              '.pf_waterfall_ul {position: relative;overflow: hidden;}' +
+              '.pf_waterfall_ul li {overflow: hidden; text-align: center;}' +
+              '.pf_waterfall_ul img {width: 100%;}' +
+              '.pf_nomore {text-align: center;font-size: 20px;padding: 10px 0;color: #999;font-family: Microsoft YaHei;}' +
+              '.loadingTypeBtn {position:absolute;top:-100px;right:0px;width:10px;height:10px;background:green;z-index:-1;}' +
+              '.zzc_wf_in {animation: zzc_wf_fade 1s; -webkit-animation: zzc_wf_fade 1s; }' +
               '@-webkit-keyframes zzc_wf_fade {0% {opacity: 0; } 100% {opacity: 1; } }' +
               '@-moz-keyframes zzc_wf_fade {0% {opacity: 0; } 100% {opacity: 1; } }' +
               '@-o-keyframes zzc_wf_fade {0% {opacity: 0; } 100% {opacity: 1; } }' +
@@ -31,14 +38,14 @@
               '@keyframes zzc_wf_fade {0% {opacity: 0; } 100% {opacity: 1; } }' ;
   $('head').append(style);
 
-  
+
   $.fn.waterfall = function (options) {
 
     // 内部存储调用区块
     var configs = {
       ele : $(this) ,
       eul : $(this).find('ul') ,
-      eli : $(this).find('ul').children('li') 
+      eli : $(this).find('ul').children('li')
     };
 
     options = $.extend({} , configs , options || {});
@@ -64,9 +71,9 @@
       ajaxMain : '' ,             /*ajax加载分页地址的主体部分*/
       ajaxSuffix : '' ,   /*ajax加载分页地址的后缀*/
       ajaxUrl : '' ,    /*ajax加载地址*/
-      delta : '' , 
+      delta : '' ,
       flag : true , /*时间控制器*/
-      scrollH : 0  /*实时存储滚动的距离*/      
+      scrollH : 0
     });
 
     // 方法
@@ -74,7 +81,7 @@
 
       // 初始化位置
       _init : function() {
-        
+
         external.width = (typeof external.width === 'string') ? internal.ele.width() : external.width;
 
         internal.allWidth = Math.floor((external.width - (external.length - 1) * external.spacing) / external.length) ;
@@ -83,9 +90,7 @@
 
         var min_h , key , max_h , wan = 0 , jia = 0 , startNum = external.length , endNum = internal.eli.length , a;
 
-        internal.eli.css({visibility : 'hidden'});
-        internal.eul.css({position : 'relative'});
-
+        internal.eul.addClass('pf_waterfall_ul');
 
         if ((external.type == 1) && is_number(external.type)) {
           a = 0
@@ -110,11 +115,11 @@
             fun.imgLoad($(element).find('img').get(0) , function (obj) {
               wan ++ ;
 
-              $(obj).width((obj.width > internal.selfWidth) ? internal.selfWidth : obj.width);
-              $(obj).height($(obj).height());
+              // $(obj).width((obj.width > internal.selfWidth) ? internal.selfWidth : obj.width);
+              // $(obj).height($(obj).height());
 
               if (!(wan == (external.length > internal.eli.length ? internal.eli.length : external.length))) return false;
-              
+
               for ( var j = 0 ; j < external.length ; j ++ ) {
                 internal.h[j] = internal.eli.eq(j).outerHeight(true);
               }
@@ -129,16 +134,17 @@
               }
               setH2();
             });
-          });        
+          });
         }
 
 
         function setH2() {
           internal.eli.slice(startNum,endNum).each(function(index,element) {
+            var _element = $(element)
             fun.imgLoad($(element).find('img').get(0),function (obj) {
 
-              $(obj).width((obj.width > internal.selfWidth) ? internal.selfWidth : obj.width);
-              $(obj).height($(obj).height());
+              // $(obj).width((obj.width > internal.selfWidth) ? internal.selfWidth : obj.width);
+              // $(obj).height($(obj).height());
 
               min_h = Math.min.apply(null,internal.h);
               key = fun.getArrayKey(internal.h , min_h);
@@ -148,10 +154,10 @@
                 top : min_h + external.spacing,
                 left : key * (internal.allWidth + external.spacing) ,
                 visibility : 'visible'
-              });  
+              });
 
               max_h = internal.h[key] += $(obj).parents('li').outerHeight(true) + external.spacing;
-              internal.eul.height((Math.max.apply(null,internal.h) > max_h) ? Math.max.apply(null,internal.h) : max_h); 
+              internal.eul.height((Math.max.apply(null,internal.h) > max_h) ? Math.max.apply(null,internal.h) : max_h);
               jia ++;
               if ((wan + jia) === internal.eli.size()) {
                 setTimeout(function() {
@@ -159,7 +165,7 @@
                   jia = 0
                 },500);
               }
-            });  
+            });
           });
         }
 
@@ -171,7 +177,7 @@
             return i;
           }
         }
-      } , 
+      } ,
       // 判断图片是否加载
       imgLoad : function (obj ,callback) {
         var timer2 = setInterval(function() {
@@ -193,7 +199,7 @@
         $(oloading).css({
           'width' : sw + ew ,
           'height' : (sh > eh) ? sh : eh ,
-          'margin-left' : - (sw + ew) / 2 
+          'margin-left' : - (sw + ew) / 2
         });
       } ,
       // 重新定位
@@ -212,10 +218,10 @@
               position : 'absolute' ,
               width : internal.selfWidth ,
               top : min_h + external.spacing ,
-              left : key * (internal.allWidth + external.spacing) 
-            }); 
+              left : key * (internal.allWidth + external.spacing)
+            });
             max_h = h[key] += $(element).outerHeight(true) + external.spacing;
-          }); 
+          });
           internal.h = h;
           internal.eul.height(Math.max.apply(null,h));
         }
@@ -224,7 +230,7 @@
 
         $('.zzc_wf_loading').stop().animate({
           'opacity' : 0 ,
-          'margin-bottom' : -70 
+          'margin-bottom' : -70
         },1000).queue(function(next){
           $(this).remove();
           next();
@@ -254,16 +260,20 @@
           beforeSend : external.ajaxBefore() ,
           success : function(response , status , xhr) {
             if (is_true(external.loading) || is_string(external.loading)) {
+              if (is_undefined(response)) {
+                fun.noMore();
+                return false;
+              }
               fun.setLoading();
             }
 
             ajaxAppendBox.html(response);
             ajaxAppendBox.find('li').each(function(index,element) {
-              
+
               fun.imgLoad($(element).find('img').get(0) , function(obj) {
 
-              $(obj).width((obj.width > internal.selfWidth) ? internal.selfWidth : obj.width);
-              $(obj).height($(obj).height());
+              // $(obj).width((obj.width > internal.selfWidth) ? internal.selfWidth : obj.width);
+              // $(obj).height($(obj).height());
 
                 min_h = Math.min.apply(null,internal.h);
                 key = fun.getArrayKey(internal.h , min_h);
@@ -273,9 +283,9 @@
                   top : min_h + external.spacing ,
                   left : key * (internal.allWidth + external.spacing) ,
                   visibility : 'visible'
-                });  
+                });
                 max_h = internal.h[key] += $(obj).parents('li').outerHeight(true) + external.spacing;
-                internal.eul.height(Math.max.apply(null,internal.h)); 
+                internal.eul.height(Math.max.apply(null,internal.h));
                 wan ++ ;
                 if (wan == ajaxAppendBox.find('li').size()) {
                   ajaxAppendBox.find('li').unwrap();
@@ -287,14 +297,26 @@
                   } , 300);
                 }
               });
-              
+
             });
           } ,
           error : function(xhr) {
-            alert(xhr.status + ' : ' + xhr.statusText );
+            if (xhr.status === 0) {
+              fun.noMore();
+            }
           }
         });
-      } 
+      } ,
+      noMore : function () {
+        internal.eul.after('<p class="pf_nomore">' + external.noMoreText + '</p>');
+        $('.zzc_wf_loading').stop().animate({
+          'opacity' : 0 ,
+          'margin-bottom' : -70
+        },1000).queue(function(next){
+          $(this).remove();
+          next();
+        });
+      }
 
     };
 
@@ -345,24 +367,23 @@
         $(window).on({
           scroll : function() {
             var st = parseInt($(document).height() - $(window).height() - external.ajax.domDistance) ;
-            // alert(options.delta);
             if (($(this).scrollTop() - st >= 0) && ($(this).scrollTop() > internal.scrollH) && options.delta < 0) {
               setTimeout(function() {
                   fun.ajaxPosition();
               },500);
-              internal.scrollH = $(this).scrollTop();          
+              internal.scrollH = $(this).scrollTop();
             }
           }
         });
       } else if ((external.ajax.domType == 'click') && !is_undefined(external.ajax.dom)) {
         internal.loadingType = 'click';
-        internal.loadingDom = external.ajax.dom ;  
+        internal.loadingDom = external.ajax.dom ;
       }
       $(internal.loadingDom).on({
         click : function () {
           fun.ajaxPosition();
         }
-      });  
+      });
     }
 
     // 初始化定位
@@ -389,12 +410,13 @@
     showClass : false ,               /*是否开启每个独立块显示样式，可以自定义css3动画*/
     reposition : true ,               /*加载完是否重新排序*/
     after : $.noop  ,                 /*图片显示之后执行的函数*/
-    ajaxBefore : $.noop ,             /*异步加载之前执行的的函数*/        
+    ajaxBefore : $.noop ,             /*异步加载之前执行的的函数*/
+    noMoreText : '没有更多的内容！' , /*ajax加载完成后提示信息*/
     ajax : {
-      type : 'GET' ,                  /*类型*/      
+      type : 'GET' ,                  /*类型*/
       url : '' ,                      /*加载连接*/
       dataType : '' ,                 /*加载数据类型*/
-      dom : '' ,                      /*触发执行异步加载对象*/      
+      dom : '' ,                      /*触发执行异步加载对象*/
       domType : 'click'  ,            /*触发执行异步加载类型*/
       domDistance : 100               /*触发执行异步加载距离底部的高度*/
     }
@@ -404,10 +426,10 @@
   function wheel(obj, fn ,useCapture){
     //判断是不是FF
     var mousewheelevt=(/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel"
-    if (obj.attachEvent)  {//if IE (and Opera depending on user setting) 
-      obj.attachEvent("on"+mousewheelevt, fn, useCapture); 
+    if (obj.attachEvent)  {//if IE (and Opera depending on user setting)
+      obj.attachEvent("on"+mousewheelevt, fn, useCapture);
     }
-    else if (obj.addEventListener) {//WC3 browsers 
+    else if (obj.addEventListener) {//WC3 browsers
       obj.addEventListener(mousewheelevt, fn, useCapture);
     }
   };

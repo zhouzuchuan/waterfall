@@ -5,8 +5,29 @@
 <title>瀑布流插件案列</title>
 <link rel="stylesheet" href="http://365jia.cn/css/basic.css" type="text/css" />
 <link rel="stylesheet" href="style/zzc_wf.css" />
+<style type="text/css">
+#waterfall {
+  width: 1600px;
+  margin: 0 auto;
+}
+
+#waterfall ul li {
+  padding: 10px 80px 30px 10px;
+  background: #ddd;
+}
+
+.btn1 {
+  position: fixed;
+  right: 80px;
+  bottom: 200px;
+  background: #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
+<div style="height: 100px;"></div>
 <div id="waterfall">
   <ul> 
     <li><img src="http://365jia.cn/uploads/15/0303/54f504cc3b230.jpg" /><p>dfasdfasdfasdfga</p></li>
@@ -24,13 +45,14 @@
     <li><img src="http://pic27.huitu.com/res/20150116/660153_20150116132847337119_1.jpg" /><p>dfasdfasdfasdfga</p></li>
     <li><img src="http://pic26.huitu.com/res/20150113/664185_20150113013933360200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
     <li><img src="http://pic26.huitu.com/res/20150113/664185_20150113014620542200_1.jpg" /><p>dfasdfasdfasdfga</p></li>
+    <li><img src="http://365jia.cn/images/load.gif" /><p>dfasdfasdfasdfga</p></li>
   </ul>
   <div>ddasdfasdgfasdfasdf</div>
 </div>
 
 <div class="btn1">加载</div>
 <script type="text/javascript" src="http://365jia.cn/js/jQuery/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="js/jQuery-waterfall.js"></script>
+<script type="text/javascript" src="js/jQuery-waterfall-min.js"></script>
 <script>
 
 
@@ -38,9 +60,9 @@ $(document).ready(function(){
 
   $('#waterfall').waterfall({
     type : 0 ,
-    width : 1200 ,
-    length : 5 ,
-    spacing : 10 , 
+    width : 1600 ,
+    length : 4 ,
+    spacing : 10 ,
     loadingText : '玩命加载中…' ,
     ajaxBefore : function () {
     } ,
@@ -50,7 +72,7 @@ $(document).ready(function(){
     //     dataType : 'html' ,
     //     domDistance : 0 ,
     //     dom : '.btn1',
-    //     domType : 'scroll' 
+    //     domType : 'scroll'
     // } ,
     ajax : {
         type : 'POST',
@@ -62,12 +84,12 @@ $(document).ready(function(){
         dataType : 'html' ,
         dom : '.btn1',
         domDistance : 200 ,
-        domType : 'scroll' 
+        domType : 'scroll'
     } ,
     after : function() {
-    } 
+    }
   });
-
+});
 
 </script>
 </body>
