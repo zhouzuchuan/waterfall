@@ -26,7 +26,7 @@
               '.zzc_wf_loading em {display: inline-block; width: 32px; height: 32px; padding: 10px 0 10px 10px; vertical-align: middle; }' +
               '.ajaxAppendBox li {visibility: hidden}' +
               '.pf_waterfall_ul {position: relative;overflow: hidden;}' +
-              '.pf_waterfall_ul li {overflow: hidden; text-align: center;}' +
+              '.pf_waterfall_ul li {overflow: hidden;}' +
               '.pf_waterfall_ul img {width: 100%;}' +
               '.pf_nomore {text-align: center;font-size: 20px;padding: 10px 0;color: #999;font-family: Microsoft YaHei;}' +
               '.loadingTypeBtn {position:absolute;top:-100px;right:0px;width:10px;height:10px;background:green;z-index:-1;}' +
