@@ -10,6 +10,8 @@
 *        v1.1.1 【2015.05.12】
 *              # 优化显示样式，解决显示bug
 *              # 添加新接口，定义ajax加载完成提示信息
+*        v1.1.2 【2015.06.04】
+*              # 添加AJAX图片加载完成函数页数参数
 *
 */
 
@@ -26,7 +28,7 @@
               '.zzc_wf_loading em {display: inline-block; width: 32px; height: 32px; padding: 10px 0 10px 10px; vertical-align: middle; }' +
               '.ajaxAppendBox li {visibility: hidden}' +
               '.pf_waterfall_ul {position: relative;overflow: hidden;}' +
-              '.pf_waterfall_ul li {overflow: hidden;}' +
+              '.pf_waterfall_ul li {overflow: hidden;visibility: hidden;}' +
               '.pf_waterfall_ul img {width: 100%;}' +
               '.pf_nomore {text-align: center;font-size: 20px;padding: 10px 0;color: #999;font-family: Microsoft YaHei;}' +
               '.loadingTypeBtn {position:absolute;top:-100px;right:0px;width:10px;height:10px;background:green;z-index:-1;}' +
@@ -203,9 +205,9 @@
         });
       } ,
       // 重新定位
-      reposition : function () {
+      reposition : function (a) {
 
-        var  h = [] , min_h , key , max_h ;
+        var  h = [] , min_h , key , max_h  , pageIndex;
 
         if (is_true(external.reposition)) {
           for (var i = 0 ; i < external.length ; i ++) {
@@ -226,7 +228,8 @@
           internal.eul.height(Math.max.apply(null,h));
         }
 
-        external.after();
+        pageIndex = is_undefined(a) ? -1 : a ;
+        external.after(pageIndex);
 
         $('.zzc_wf_loading').stop().animate({
           'opacity' : 0 ,
@@ -289,8 +292,8 @@
                 wan ++ ;
                 if (wan == ajaxAppendBox.find('li').size()) {
                   ajaxAppendBox.find('li').unwrap();
-                  fun.reposition();
-                  wan = 0
+                  fun.reposition(internal.ajaxPage);
+                  wan = 0 ;
                   internal.ajaxPage += 1 ;
                   setTimeout(function () {
                     internal.flag = true ;

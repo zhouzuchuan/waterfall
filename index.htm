@@ -86,7 +86,11 @@ $(document).ready(function(){
         domDistance : 200 ,
         domType : 'scroll'
     } ,
-    after : function() {
+    after : function (pageIndex) {
+      console.log(pageIndex);
+      if (pageIndex == 2) {
+        console.log('现在加载的是第' + pageIndex + '页！' );
+      }
     }
   });
 });
