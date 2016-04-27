@@ -1,0 +1,29 @@
+/*
+ * @File Name:     css.css
+ * @Create By:     zhouzuchuan
+ * @Create Time:   2016-04-27 09:47:56
+ * @Modified By:   zhouzuchuan
+ * @Modified Time: 2016-04-27 09:48:05
+ */
+
+
+@charset "utf-8";
+
+#waterfall {
+  width: 1600px;
+  margin: 0 auto;
+}
+
+#waterfall ul li {
+  padding: 10px 80px 30px 10px;
+  background: #ddd;
+}
+
+.btn1 {
+  position: fixed;
+  right: 80px;
+  bottom: 200px;
+  background: #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+}
